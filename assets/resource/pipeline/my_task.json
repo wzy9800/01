@@ -1,0 +1,70 @@
+{
+  "点击怪物": {
+    "recognition": {
+      "type": "TemplateMatch",
+      "param": {
+        "template": [
+          "maoxi.png",
+          "xuelang.png",
+          "suanyilong.png",
+          "bingyilong.png",
+          "zeilong.png",
+          "yilong.png"
+        ],
+        "green_mask": true
+      }
+    },
+    "action": {
+      "type": "Click"
+    },
+    "next": ["战斗循环"],
+    "timeout": -1,
+    "on_error": ["异常界面处理"]
+  },
+  "战斗循环": {
+    "recognition": {
+      "type": "DirectHit"
+    },
+    "action": {
+      "type": "Click",
+      "param": {
+        "target": [320, 700]
+      }
+    },
+    "repeat": 6,
+    "repeat_delay": 500,
+    "next": ["识别主界面"],
+    "timeout": 10000,
+    "on_error": ["异常界面处理"]
+  },
+  "识别主界面": {
+    "recognition": {
+      "type": "TemplateMatch",
+      "param": {
+        "template": ["main.png"],
+        "green_mask": true
+      }
+    },
+    "action": {
+      "type": "DoNothing"
+    },
+    "next": ["点击怪物"],
+    "timeout": 120000,
+    "on_error": ["异常界面处理"]
+  },
+  "异常界面处理": {
+    "recognition": {
+      "type": "TemplateMatch",
+      "param": {
+        "template": ["back.png"],
+        "green_mask": true,
+        "threshold": 0.4
+      }
+    },
+    "action": {
+      "type": "Click"
+    },
+    "next": ["点击怪物"],
+    "on_error": ["点击怪物"]
+  }
+}
